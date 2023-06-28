@@ -9,21 +9,29 @@
 /* Begin PBXBuildFile section */
 		CE5576D82A4C58820007EB91 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5576D72A4C58820007EB91 /* AppDelegate.swift */; };
 		CE5576DA2A4C58820007EB91 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5576D92A4C58820007EB91 /* SceneDelegate.swift */; };
-		CE5576DC2A4C58820007EB91 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5576DB2A4C58820007EB91 /* ViewController.swift */; };
+		CE5576DC2A4C58820007EB91 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5576DB2A4C58820007EB91 /* TabBarViewController.swift */; };
 		CE5576E22A4C58820007EB91 /* Filmix.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CE5576E02A4C58820007EB91 /* Filmix.xcdatamodeld */; };
 		CE5576E42A4C58840007EB91 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE5576E32A4C58840007EB91 /* Assets.xcassets */; };
 		CE5576E72A4C58840007EB91 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE5576E52A4C58840007EB91 /* LaunchScreen.storyboard */; };
+		CE6C507A2A4C677D00668EF6 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6C50792A4C677D00668EF6 /* HomeViewController.swift */; };
+		CE6C507E2A4C680600668EF6 /* ComingSoonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6C507D2A4C680600668EF6 /* ComingSoonViewController.swift */; };
+		CE6C50802A4C680F00668EF6 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6C507F2A4C680F00668EF6 /* SearchViewController.swift */; };
+		CE6C50822A4C681A00668EF6 /* DownloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6C50812A4C681A00668EF6 /* DownloadViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		CE5576D42A4C58820007EB91 /* Filmix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Filmix.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE5576D72A4C58820007EB91 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE5576D92A4C58820007EB91 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		CE5576DB2A4C58820007EB91 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		CE5576DB2A4C58820007EB91 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		CE5576E12A4C58820007EB91 /* Filmix.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Filmix.xcdatamodel; sourceTree = "<group>"; };
 		CE5576E32A4C58840007EB91 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE5576E62A4C58840007EB91 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CE5576E82A4C58840007EB91 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CE6C50792A4C677D00668EF6 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		CE6C507D2A4C680600668EF6 /* ComingSoonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComingSoonViewController.swift; sourceTree = "<group>"; };
+		CE6C507F2A4C680F00668EF6 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		CE6C50812A4C681A00668EF6 /* DownloadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +64,35 @@
 		CE5576D62A4C58820007EB91 /* Filmix */ = {
 			isa = PBXGroup;
 			children = (
+				CE6C507B2A4C67D700668EF6 /* Controller */,
 				CE5576D72A4C58820007EB91 /* AppDelegate.swift */,
 				CE5576D92A4C58820007EB91 /* SceneDelegate.swift */,
-				CE5576DB2A4C58820007EB91 /* ViewController.swift */,
+				CE5576DB2A4C58820007EB91 /* TabBarViewController.swift */,
 				CE5576E32A4C58840007EB91 /* Assets.xcassets */,
 				CE5576E52A4C58840007EB91 /* LaunchScreen.storyboard */,
 				CE5576E82A4C58840007EB91 /* Info.plist */,
 				CE5576E02A4C58820007EB91 /* Filmix.xcdatamodeld */,
 			);
 			path = Filmix;
+			sourceTree = "<group>";
+		};
+		CE6C507B2A4C67D700668EF6 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				CE6C507C2A4C67EE00668EF6 /* Core */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		CE6C507C2A4C67EE00668EF6 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				CE6C50792A4C677D00668EF6 /* HomeViewController.swift */,
+				CE6C507D2A4C680600668EF6 /* ComingSoonViewController.swift */,
+				CE6C507F2A4C680F00668EF6 /* SearchViewController.swift */,
+				CE6C50812A4C681A00668EF6 /* DownloadViewController.swift */,
+			);
+			path = Core;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,9 +165,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE6C507A2A4C677D00668EF6 /* HomeViewController.swift in Sources */,
+				CE6C50802A4C680F00668EF6 /* SearchViewController.swift in Sources */,
 				CE5576E22A4C58820007EB91 /* Filmix.xcdatamodeld in Sources */,
-				CE5576DC2A4C58820007EB91 /* ViewController.swift in Sources */,
+				CE5576DC2A4C58820007EB91 /* TabBarViewController.swift in Sources */,
 				CE5576D82A4C58820007EB91 /* AppDelegate.swift in Sources */,
+				CE6C507E2A4C680600668EF6 /* ComingSoonViewController.swift in Sources */,
+				CE6C50822A4C681A00668EF6 /* DownloadViewController.swift in Sources */,
 				CE5576DA2A4C58820007EB91 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -284,7 +316,6 @@
 				INFOPLIST_FILE = Filmix/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
@@ -313,7 +344,6 @@
 				INFOPLIST_FILE = Filmix/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
