@@ -69,5 +69,13 @@ class MovieTableViewCell: UITableViewCell {
         movieLabel.text = model.original_title ?? ""
     }
 
+    func configureMovieData(model:MovieData){
+        guard let imageUrl = model.poster_path else {return}
+        guard let url = URL(string: "https://image.tmdb.org/t/p/w500\(imageUrl)") else {return}
+        movieImageView.sd_setImage(with: url)
+
+        movieLabel.text = model.original_title ?? model.original_name ?? ""
+    }
+
 }
 

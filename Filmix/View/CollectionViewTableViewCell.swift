@@ -51,6 +51,17 @@ class CollectionViewTableViewCell: UITableViewCell {
         }
     }
 
+    func saveDownloadMovie(indexPath: IndexPath){
+        CoreDataManager.shared.saveData(model: movie[indexPath.row]) { result in
+            switch result{
+                case .success(()):
+                    NotificationCenter.default.post(name: NSNotification.Name("Downloaded"), object: nil)
+                case .failure(let error):
+                    print(error.localizedDescription)
+            }
+        }
+    }
+
     
 }
 
@@ -63,6 +74,16 @@ extension CollectionViewTableViewCell: UICollectionViewDelegate, UICollectionVie
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieCollectionViewCell.identifier, for: indexPath) as? MovieCollectionViewCell else { return UICollectionViewCell()}
         cell.configure(model: movie[indexPath.row])
         return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemsAt indexPaths: [IndexPath], point: CGPoint) -> UIContextMenuConfiguration? {
+        let config = UIContextMenuConfiguration(actionProvider:  { action in
+            let action = UIAction(title: "Download") { action in
+                self.saveDownloadMovie(indexPath: indexPaths[0])
+            }
+            return UIMenu(children: [action])
+        })
+        return config
     }
 
 

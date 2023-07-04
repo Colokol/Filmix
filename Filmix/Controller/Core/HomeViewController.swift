@@ -17,6 +17,7 @@ class HomeViewController: UIViewController {
 
     let category = ["Now Plaing","Popular","Trending TV", "Upcoming movies", "Top rated"]
 
+    private var header:MovieHeaderView?
 
     private let homeTableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
@@ -28,13 +29,14 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
 
-        let header = MovieHeaderView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 350))
+        header = MovieHeaderView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height / 3))
 
         homeTableView.tableHeaderView = header
         homeTableView.dataSource = self
         homeTableView.delegate = self
 
         setNavigationBarItem()
+        setRandomHeader()
 
         view.addSubview(homeTableView)
     }
@@ -45,14 +47,24 @@ class HomeViewController: UIViewController {
     }
 
     func setNavigationBarItem() {
-
-
         navigationItem.rightBarButtonItems = [
             UIBarButtonItem(image: UIImage(systemName: "person"), style: .done, target: nil, action: nil),
             UIBarButtonItem(image: UIImage(systemName: "play.rectangle"), style: .plain, target: nil, action: nil)
         ]
 
-        navigationController?.navigationBar.tintColor = .red
+        navigationController?.navigationBar.tintColor = .black
+    }
+
+    func setRandomHeader(){
+        APICaller.shared.getTopRated { result in
+            switch result {
+                case .success(let movie):
+                    guard let randomMovie = movie.randomElement() else {return}
+                    self.header?.configure(model: randomMovie)
+                case .failure(let error):
+                    print(error.localizedDescription)
+            }
+        }
     }
 
 }
@@ -140,14 +152,13 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         guard let header = view as? UITableViewHeaderFooterView else {return}
         header.textLabel?.font = .systemFont(ofSize: 18, weight: .bold)
-        header.textLabel?.textColor = .red
+        header.textLabel?.textColor = .black
         header.textLabel?.text = header.textLabel?.text?.capitalized
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let saveArea = view.safeAreaInsets.top
         let offset = saveArea + scrollView.contentOffset.y
-
         navigationController?.navigationBar.transform = .init(translationX: 0, y: -offset)
     }
 }

@@ -16,7 +16,6 @@ class MovieHeaderView: UIView {
         let image = UIImageView()
         image.contentMode = .scaleAspectFill
         image.clipsToBounds = true
-        image.sd_setImage(with: URL(string: "https://cdn1.ozone.ru/s3/multimedia-n/6509170235.jpg"))
         return image
     }()
 
@@ -24,8 +23,6 @@ class MovieHeaderView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(movieImage)
-
-
 
     }
 
@@ -37,6 +34,11 @@ class MovieHeaderView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         movieImage.frame = bounds
+    }
+
+    func configure(model:Movie) {
+        guard let url = URL(string: "https://image.tmdb.org/t/p/w500\(model.poster_path ?? "")") else {return}
+        movieImage.sd_setImage(with: url)
     }
 
 }
