@@ -65,6 +65,7 @@ extension ComingSoonViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MovieTableViewCell.identifier, for: indexPath) as? MovieTableViewCell else { return UITableViewCell() }
         cell.configure(model: movies[indexPath.row])
+        cell.delegate = self
         return cell
     }
 
@@ -91,5 +92,24 @@ extension ComingSoonViewController: UITableViewDelegate, UITableViewDataSource {
             }
         }
     }
+
+}
+
+
+extension ComingSoonViewController: MovieTableViewCellDelegate {
+
+    func downloadButtonTapped(in cell: MovieTableViewCell) {
+        guard let indexPath = movieTableView.indexPath(for: cell) else {return}
+
+        CoreDataManager.shared.saveData(model: movies[indexPath.row]) { result in
+            switch result{
+                case .success(()):
+                    NotificationCenter.default.post(name: NSNotification.Name("Downloaded"), object: nil)
+                case .failure(let error):
+                    print(error.localizedDescription)
+            }
+        }
+    }
+
 
 }

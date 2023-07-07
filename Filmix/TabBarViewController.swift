@@ -32,7 +32,7 @@ class TabBarViewController: UITabBarController {
         vc4.tabBarItem.image = UIImage(systemName: "arrow.down.circle")
 
 
-        tabBar.tintColor = .red
+        tabBar.tintColor = .black
         setViewControllers([vc1,vc2,vc3,vc4], animated: true)
 
         vc1.tabBarItem.title = "Home"

@@ -1,9 +1,9 @@
-//
-//  HomeViewController.swift
-//  Filmix
-//
-//  Created by Uladzislau Yatskevich on 28.06.23.
-//
+    //
+    //  HomeViewController.swift
+    //  Filmix
+    //
+    //  Created by Uladzislau Yatskevich on 28.06.23.
+    //
 
 import UIKit
 
@@ -29,7 +29,7 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
 
-        header = MovieHeaderView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height / 3))
+        header = MovieHeaderView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height / 2))
 
         homeTableView.tableHeaderView = header
         homeTableView.dataSource = self
@@ -47,6 +47,11 @@ class HomeViewController: UIViewController {
     }
 
     func setNavigationBarItem() {
+
+        var image = UIImage(named: "logo")
+        image = image?.withRenderingMode(.alwaysOriginal)
+
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: nil, action: nil)
         navigationItem.rightBarButtonItems = [
             UIBarButtonItem(image: UIImage(systemName: "person"), style: .done, target: nil, action: nil),
             UIBarButtonItem(image: UIImage(systemName: "play.rectangle"), style: .plain, target: nil, action: nil)
@@ -71,74 +76,57 @@ class HomeViewController: UIViewController {
 
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
-
-
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CollectionViewTableViewCell.identefier, for: indexPath) as? CollectionViewTableViewCell else {
             return UITableViewCell()
         }
+        cell.delegate = self
+
+        func fetchMovie(result:(Result<[Movie],Error>)){
+            switch result {
+                case .success(let movies):
+                    cell.configure(movies: movies)
+                case .failure(let error):
+                    print(error.localizedDescription)
+            }
+        }
 
         switch indexPath.section {
             case 0: APICaller.shared.getNowPlaingMovie { result in
-                switch result {
-                    case .success(let movies):
-                        cell.configure(movies: movies)
-                    case .failure(let error):
-                        print(error.localizedDescription)
-                }
+                fetchMovie(result: result)
             }
             case 1:
                 APICaller.shared.getPopularMovie { result in
-                switch result {
-                    case .success(let movies):
-                        cell.configure(movies: movies)
-                    case .failure(let error):
-                        print(error.localizedDescription)
+                    fetchMovie(result: result)
                 }
-            }
             case 2 :
                 APICaller.shared.getPopularTv { result in
-                    switch result {
-                        case .success(let movies):
-                            cell.configure(movies: movies)
-                        case .failure(let error):
-                            print(error.localizedDescription)
-                    }
+                    fetchMovie(result: result)
                 }
             case 3 :
                 APICaller.shared.getComingSoonMovie { result in
-                    switch result {
-                        case .success(let movies):
-                            cell.configure(movies: movies)
-                        case .failure(let error):
-                            print(error.localizedDescription)
-                    }
+                    fetchMovie(result: result)
                 }
             case 4 : APICaller.shared.getTopRated { result in
-                switch result {
-                    case .success(let movies):
-                        cell.configure(movies: movies)
-                    case .failure(let error):
-                        print(error.localizedDescription)
-                }
+                fetchMovie(result: result)
             }
             default: break
         }
-
 
         return cell
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 250
+        return 208
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        40
+        25
     }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -151,7 +139,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         guard let header = view as? UITableViewHeaderFooterView else {return}
-        header.textLabel?.font = .systemFont(ofSize: 18, weight: .bold)
+        header.textLabel?.font = .systemFont(ofSize: 18, weight: .heavy)
         header.textLabel?.textColor = .black
         header.textLabel?.text = header.textLabel?.text?.capitalized
     }
@@ -161,4 +149,16 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         let offset = saveArea + scrollView.contentOffset.y
         navigationController?.navigationBar.transform = .init(translationX: 0, y: -offset)
     }
+}
+
+
+extension HomeViewController: CollectionViewTableViewDelegate {
+    func collectonViewDidTap(cell: CollectionViewTableViewCell, model: MovieModel) {
+        DispatchQueue.main.async {
+            let vc = MovieViewController()
+            vc.configure(model: model)
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+
 }

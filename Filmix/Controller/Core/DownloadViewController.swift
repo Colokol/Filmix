@@ -42,7 +42,6 @@ class DownloadViewController: UIViewController {
             switch result{
                 case .success(let movie):
                     self.movies = movie
-                    print(self.movies)
                     DispatchQueue.main.async {
                         self.movieTableView.reloadData()
                     }

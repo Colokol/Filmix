@@ -22,8 +22,24 @@ class MovieHeaderView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        addSubview(movieImage)
 
+        addSubview(movieImage)
+        gradientHeader()
+
+    }
+
+    func gradientHeader(){
+        let gradient = CAGradientLayer()
+        gradient.colors = [
+            UIColor.systemBackground.cgColor,
+            UIColor.clear.cgColor,
+            UIColor.clear.cgColor,
+            UIColor.clear.cgColor,
+            UIColor.clear.cgColor,
+            UIColor.systemBackground.cgColor
+        ]
+        gradient.frame = bounds
+        layer.addSublayer(gradient)
     }
 
     required init?(coder: NSCoder) {
