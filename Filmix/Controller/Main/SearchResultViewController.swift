@@ -19,7 +19,9 @@ class SearchResultViewController: UIViewController {
 
     public let searchCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: UIScreen.main.bounds.width / 3 - 10 , height: UIScreen.main.bounds.height / 3 - 50)
+        layout.minimumLineSpacing = 5
+        layout.minimumInteritemSpacing = 5
+        layout.itemSize = CGSize(width: UIScreen.main.bounds.width / 3 - 5 , height: (UIScreen.main.bounds.height - 50) / 4.5)
         layout.scrollDirection = .vertical
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collection.register(MovieCollectionViewCell.self, forCellWithReuseIdentifier: MovieCollectionViewCell.identifier)
