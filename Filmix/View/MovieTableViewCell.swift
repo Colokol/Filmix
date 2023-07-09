@@ -10,6 +10,7 @@ import SDWebImage
 
 protocol MovieTableViewCellDelegate: AnyObject {
     func downloadButtonTapped(in cell: MovieTableViewCell)
+    func showAlertAddMovie()
 }
 
 
@@ -103,6 +104,7 @@ class MovieTableViewCell: UITableViewCell {
 
     @objc func downloadButtonTaped(){
         delegate?.downloadButtonTapped(in: self)
+        delegate?.showAlertAddMovie()
         downloadButton.alpha = 0.5
         UIView.animate(withDuration: 0.5) {
             self.downloadButton.alpha = 1

@@ -35,11 +35,6 @@ class TabBarViewController: UITabBarController {
         tabBar.tintColor = .black
         setViewControllers([vc1,vc2,vc3,vc4], animated: true)
 
-        vc1.tabBarItem.title = "Home"
-        vc2.tabBarItem.title = "Cooming"
-        vc3.tabBarItem.title = "Search"
-        vc4.tabBarItem.title = "Download"
-
     }
 
 
