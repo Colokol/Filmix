@@ -1,9 +1,9 @@
-//
-//  ComingSoonViewController.swift
-//  Filmix
-//
-//  Created by Uladzislau Yatskevich on 28.06.23.
-//
+    //
+    //  ComingSoonViewController.swift
+    //  Filmix
+    //
+    //  Created by Uladzislau Yatskevich on 28.06.23.
+    //
 
 import UIKit
 
@@ -97,6 +97,15 @@ extension ComingSoonViewController: UITableViewDelegate, UITableViewDataSource {
 
 
 extension ComingSoonViewController: MovieTableViewCellDelegate {
+
+    func showAlertAddMovie() {
+        let allert = UIAlertController(title: "Movie addes successfully", message: nil, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default)
+        allert.addAction(okAction)
+
+        present(allert, animated: true)
+    }
+
 
     func downloadButtonTapped(in cell: MovieTableViewCell) {
         guard let indexPath = movieTableView.indexPath(for: cell) else {return}

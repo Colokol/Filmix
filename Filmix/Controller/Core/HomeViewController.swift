@@ -25,6 +25,13 @@ class HomeViewController: UIViewController {
         return tableView
     }()
 
+    private let searchControler: UISearchController = {
+        let search = UISearchController(searchResultsController: SearchResultViewController())
+        search.searchBar.placeholder = "Search"
+        search.searchBar.tintColor = .black
+        return search
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -34,6 +41,9 @@ class HomeViewController: UIViewController {
         homeTableView.tableHeaderView = header
         homeTableView.dataSource = self
         homeTableView.delegate = self
+
+        navigationItem.searchController = searchControler
+        searchControler.searchResultsUpdater = self
 
         setNavigationBarItem()
         setRandomHeader()
@@ -53,6 +63,7 @@ class HomeViewController: UIViewController {
 
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: nil, action: nil)
         navigationItem.rightBarButtonItems = [
+            UIBarButtonItem(image: UIImage(systemName: "magnifyingglass"), style: .done, target: self, action: #selector(searchBar)),
             UIBarButtonItem(image: UIImage(systemName: "person"), style: .done, target: nil, action: nil),
             UIBarButtonItem(image: UIImage(systemName: "play.rectangle"), style: .plain, target: nil, action: nil)
         ]
@@ -70,6 +81,10 @@ class HomeViewController: UIViewController {
                     print(error.localizedDescription)
             }
         }
+    }
+
+    @objc func searchBar(){
+        searchControler.isActive.toggle()
     }
 
 }
@@ -158,6 +173,36 @@ extension HomeViewController: CollectionViewTableViewDelegate {
             let vc = MovieViewController()
             vc.configure(model: model)
             self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+
+}
+
+extension HomeViewController: UISearchResultsUpdating, SearchResultViewControlerDelegate {
+    func searchResultDidTap(model: MovieModel) {
+        DispatchQueue.main.async {
+            let vc = MovieViewController()
+            vc.configure(model: model)
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let text = searchController.searchBar.text else {return}
+        if text.count > 3, let resultControler = searchController.searchResultsController as? SearchResultViewController {
+            resultControler.delegate = self
+            APICaller.shared.searchMovie(searchMovie: text) { result in
+                switch result {
+                    case .success(let movie):
+                        DispatchQueue.main.async {
+                            resultControler.movies = movie
+                            resultControler.searchCollectionView.reloadData()
+                        }
+
+                    case .failure(let error):
+                        print(error.localizedDescription)
+                }
+            }
         }
     }
 

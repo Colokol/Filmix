@@ -58,10 +58,10 @@ extension SearchResultViewController: UICollectionViewDelegate, UICollectionView
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
-        let title = self.movies[indexPath.row].original_title
+        let title = self.movies[indexPath.row].original_title ?? self.movies[indexPath.row].original_name ?? ""
         let overview =  self.movies[indexPath.row].overview
 
-        APICaller.shared.searchMovieYoutube(searchMovie: movies[indexPath.row].original_title ?? "") { [weak self] result in
+        APICaller.shared.searchMovieYoutube(searchMovie: title + "trailer") { [weak self] result in
             guard let self = self else {return}
             switch result {
                 case .success(let video):
